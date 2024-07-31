@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 export const useStyles = makeStyles({
     tableHead: {
         '& th': {
-            minWidth: 200,
+            minWidth: 250,
         }
     },
     subtitleRow: {

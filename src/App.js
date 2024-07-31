@@ -19,7 +19,9 @@ function App() {
     <Table>
       <TableHead className={styles.tableHead}>
         <TableRow className={styles.subtitleRow}>
-          <TableCell colSpan={8} align="center" className={styles.usdotInfo}>USDOT INFORMATION</TableCell>
+          <TableCell colSpan={usdotInfoNames.length} align="center" className={styles.usdotInfo}>USDOT INFORMATION</TableCell>
+          <TableCell colSpan={operatingAuthInfoNames.length} align="center" className={styles.operatingAuthInfo}>OPERATING AUTHORITY INFORMATION</TableCell>
+          <TableCell colSpan={companyInfoNames.length} align="center" className={styles.companyInfo}>COMPANY INFORMATION</TableCell>
         </TableRow>
         <TableRow>
           {usdotInfoNames.map(column => (
@@ -35,11 +37,6 @@ function App() {
               />
             </TableCell>
           ))}
-        </TableRow>
-        <TableRow className={styles.subtitleRow}>
-          <TableCell colSpan={2} align="center" className={styles.operatingAuthInfo}>OPERATING AUTHORITY INFORMATION</TableCell>
-        </TableRow>
-        <TableRow>
           {operatingAuthInfoNames.map(column => (
             <TableCell key={column}>
               <TextField
@@ -53,11 +50,6 @@ function App() {
               />
             </TableCell>
           ))}
-        </TableRow>
-        <TableRow className={styles.subtitleRow}>
-          <TableCell colSpan={7} align="center" className={styles.companyInfo}>COMPANY INFORMATION</TableCell>
-        </TableRow>
-        <TableRow>
           {companyInfoNames.map(column => (
             <TableCell key={column}>
               <TextField

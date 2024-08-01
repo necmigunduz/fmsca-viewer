@@ -1,3 +1,3 @@
-export const companyInfoNames = [  'legal_name', 'dba_name', 'physical_address', 'phone', 'mailing_address', 'duns_number', 'power_units'];
-export const usdotInfoNames = ['entity_type', 'operating_status', 'usdot_number', 'mcs_150_form_date', 'out_of_service_date', 'state_carrier_id_number', 'mcs_150_mileage_year'];
-export const operatingAuthInfoNames = ['operating_authority_status', 'mc_mx_ff_number'];
+export const companyInfoNames = [  'Legal Name', 'DBA Name', 'Physical Address', 'Phone', 'Mailing Address', 'Duns Number', 'Power Units'];
+export const usdotInfoNames = ['Entity Type', 'Operating Status', 'USDOT Number', 'MCS 150 Form Date', 'Out of Service Date', 'State Carrier ID Number', 'MCS 150 Mileage Year'];
+export const operatingAuthInfoNames = ['Operating Authority Status', 'MC MX FF Number'];

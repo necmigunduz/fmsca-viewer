@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('excel/data2.xlsx');
+        const response = await fetch('excel/data.xlsx');
         const file = await response.blob();
         const { paginatedData, totalRows } = await loadDataFromExcel(file, page * rowsPerPage, rowsPerPage, filters);
         setData(paginatedData);
@@ -31,10 +31,10 @@ function App() {
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
     setFilters(prev => ({ ...prev, [name]: value }));
-    setPage(0);  // Reset to first page on filter change
+    setPage(0);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (__event, newPage) => {
     setPage(newPage);
   };
 
@@ -57,7 +57,7 @@ function App() {
                 <TableCell key={column}>
                   <TextField
                     name={column}
-                    label={column.replace('_', ' ')}
+                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
                     value={filters[column] || ''}
                     onChange={handleFilterChange}
                     variant="outlined"
@@ -70,7 +70,7 @@ function App() {
                 <TableCell key={column}>
                   <TextField
                     name={column}
-                    label={column.replace('_', ' ')}
+                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
                     value={filters[column] || ''}
                     onChange={handleFilterChange}
                     variant="outlined"
@@ -83,7 +83,7 @@ function App() {
                 <TableCell key={column}>
                   <TextField
                     name={column}
-                    label={column.replace('_', ' ')}
+                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
                     value={filters[column] || ''}
                     onChange={handleFilterChange}
                     variant="outlined"

@@ -45,8 +45,7 @@ function App() {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table>
+      <Table>
           <TableHead className={styles.tableHead}>
             <TableRow className={styles.subtitleRow}>
               <TableCell colSpan={usdotInfoNames.length} align="center" className={styles.usdotInfo}>USDOT INFORMATION</TableCell>
@@ -111,7 +110,6 @@ function App() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 20, 30]}
         component="div"

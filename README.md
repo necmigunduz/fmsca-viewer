@@ -24,13 +24,9 @@ Follow [this link](https://sad-minsky-6d4aa8.netlify.app/) to try the app.
 
 To set up a local copy of the project
 
-- `git clone git@github.com:necmigunduz/to-do-list.git`
-- `cd to-do-list`
+- `git clone git@github.com:necmigunduz/fmsca-viewer.git`
+- `fmsca-viewer`
 - `npm install`
-
-To test the app
-
-- run `npm test`
 
 ## Author
 
@@ -41,12 +37,6 @@ To test the app
 - Twitter: [@necmigunduz](https://twitter.com/necm_gun)
 - Mail: [necmigunduz@gmail.com](necmigunduz@gmail.com)
 
-👤 **Wandji Bertrand**
-
-- Github: [@wandji20](https://github.com/wandji20)
-- Twitter: [@wandjibertrand](https://twitter.com/wandjibertrand)
-- Linkedin: [Linkedin](https://www.linkedin.com/in/wandji-bertrand/)
-
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
@@ -54,9 +44,5 @@ Contributions, issues, and feature requests are welcome!
 ## Show your support
 
 Give a ⭐️ if you like this project!
-
-## Acknowledgments
-
-- To Microverse for their `README` template..
 
 ## 📝 [License](LICENSE)

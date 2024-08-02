@@ -15,6 +15,7 @@ This app shows the records of FMSCA:
 - React
 - MUI
 - XSLX library
+- React Virtualized (react-virtualized)
 
 ## Live demo
 

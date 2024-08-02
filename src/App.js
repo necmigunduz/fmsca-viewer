@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import React, { useEffect, useState, useCallback } from 'react';
+import { AutoSizer, Column, Table as VirtualizedTable } from 'react-virtualized';
+import { TablePagination, TextField } from '@mui/material';
+import 'react-virtualized/styles.css';
 import { companyInfoNames, usdotInfoNames, operatingAuthInfoNames } from './data/columnNames';
 import { useStyles } from './styles/tableStyles';
 import { loadDataFromExcel } from './utils/loadData';
@@ -12,21 +14,21 @@ function App() {
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [totalRows, setTotalRows] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('excel/data.xlsx');
-        const file = await response.blob();
-        const { paginatedData, totalRows } = await loadDataFromExcel(file, page * rowsPerPage, rowsPerPage, filters);
-        setData(paginatedData);
-        setTotalRows(totalRows);
-      } catch (error) {
-        console.error('Error loading data: ', error);
-      }
-    };
-
-    fetchData();
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch('excel/data.xlsx');
+      const file = await response.blob();
+      const { paginatedData, totalRows } = await loadDataFromExcel(file, page * rowsPerPage, rowsPerPage, filters);
+      setData(paginatedData);
+      setTotalRows(totalRows);
+    } catch (error) {
+      console.error('Error loading data: ', error);
+    }
   }, [page, rowsPerPage, filters]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -45,71 +47,62 @@ function App() {
 
   return (
     <>
-      <Table>
-          <TableHead className={styles.tableHead}>
-            <TableRow className={styles.subtitleRow}>
-              <TableCell colSpan={usdotInfoNames.length} align="center" className={styles.usdotInfo}>USDOT INFORMATION</TableCell>
-              <TableCell colSpan={operatingAuthInfoNames.length} align="center" className={styles.operatingAuthInfo}>OPERATING AUTHORITY INFORMATION</TableCell>
-              <TableCell colSpan={companyInfoNames.length} align="center" className={styles.companyInfo}>COMPANY INFORMATION</TableCell>
-            </TableRow>
-            <TableRow>
-              {usdotInfoNames.map(column => (
-                <TableCell key={column}>
-                  <TextField
-                    name={column}
-                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
-                    value={filters[column] || ''}
-                    onChange={handleFilterChange}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                  />
-                </TableCell>
-              ))}
-              {operatingAuthInfoNames.map(column => (
-                <TableCell key={column}>
-                  <TextField
-                    name={column}
-                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
-                    value={filters[column] || ''}
-                    onChange={handleFilterChange}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                  />
-                </TableCell>
-              ))}
-              {companyInfoNames.map(column => (
-                <TableCell key={column}>
-                  <TextField
-                    name={column}
-                    label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
-                    value={filters[column] || ''}
-                    onChange={handleFilterChange}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                  />
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row, index) => (
-              <TableRow key={index}>
-                {usdotInfoNames.map(column => (
-                  <TableCell key={column}>{row[column]}</TableCell>
-                ))}
-                {operatingAuthInfoNames.map(column => (
-                  <TableCell key={column}>{row[column]}</TableCell>
-                ))}
-                {companyInfoNames.map(column => (
-                  <TableCell key={column}>{row[column]}</TableCell>
-                ))}
-              </TableRow>
+      <div className={styles.filterContainer}>
+        {usdotInfoNames.concat(operatingAuthInfoNames, companyInfoNames).map(column => (
+          <TextField
+            key={column}
+            name={column}
+            label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
+            value={filters[column] || ''}
+            onChange={handleFilterChange}
+            variant="outlined"
+            size="small"
+            className={styles.filterInput}
+            fullWidth
+          />
+        ))}
+      </div>
+      <AutoSizer disableHeight>
+        {({ width }) => (
+          <VirtualizedTable
+            width={width}
+            height={400}
+            headerHeight={40}
+            rowHeight={30}
+            rowCount={data.length}
+            rowGetter={({ index }) => data[index]}
+            rowClassName={({ index }) => (index % 2 === 0 ? styles.evenRow : styles.oddRow)}
+          >
+            {usdotInfoNames.map(column => (
+              <Column
+                key={column}
+                label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
+                dataKey={column}
+                width={width / (usdotInfoNames.length + operatingAuthInfoNames.length + companyInfoNames.length)}
+                className={styles.tableColumn}
+              />
             ))}
-          </TableBody>
-        </Table>
+            {operatingAuthInfoNames.map(column => (
+              <Column
+                key={column}
+                label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
+                dataKey={column}
+                width={width / (usdotInfoNames.length + operatingAuthInfoNames.length + companyInfoNames.length)}
+                className={styles.tableColumn}
+              />
+            ))}
+            {companyInfoNames.map(column => (
+              <Column
+                key={column}
+                label={column.split('_').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')}
+                dataKey={column}
+                width={width / (usdotInfoNames.length + operatingAuthInfoNames.length + companyInfoNames.length)}
+                className={styles.tableColumn}
+              />
+            ))}
+          </VirtualizedTable>
+        )}
+      </AutoSizer>
       <TablePagination
         rowsPerPageOptions={[10, 20, 30]}
         component="div"

@@ -1,21 +1,22 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles({
-    tableHead: {
-        '& th': {
-            minWidth: 250,
-        }
+export const useStyles = makeStyles((theme) => ({
+    filterContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        marginBottom: 2,
     },
-    subtitleRow: {
-        fontWeight: 'bold',
+    filterInput: {
+        flex: '1 0 200px',
     },
-    usdotInfo: {
-        backgroundColor: '#e0f7fa',
+    evenRow: {
+        backgroundColor: 'lightgrey',
     },
-    operatingAuthInfo: {
-        backgroundColor: '#ffecb3',
+    oddRow: {
+        backgroundColor: 'lightblue',
     },
-    companyInfo: {
-        backgroundColor: '#c8e6c9',
-    }
-});
+    tableColumn: {
+        padding: 1,
+    },
+}));

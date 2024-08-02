@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import { companyInfoNames, usdotInfoNames, operatingAuthInfoNames } from './data/columnNames';
 import { useStyles } from './styles/tableStyles';
 import { loadDataFromExcel } from './utils/loadData';

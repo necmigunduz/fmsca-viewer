@@ -19,4 +19,12 @@ export const useStyles = makeStyles((theme) => ({
     tableColumn: {
         padding: 1,
     },
+    loadingContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 400,
+        flexDirection: 'column',
+        gap: 2,
+    },
 }));

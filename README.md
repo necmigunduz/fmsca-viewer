@@ -7,7 +7,7 @@ This app shows the records of FMSCA:
  * One in the data loader,
  * One in the app.js as imported from MUI.
 
-![](./assets/screenshot.png)
+![](https://github.com/necmigunduz/fmsca-viewer/blob/master/screen_shot/FMSCA_Screen.png)
 
 ## Built With
 

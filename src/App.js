@@ -18,7 +18,7 @@ function App() {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch('excel/data2.xlsx');
+      const response = await fetch('excel/data.xlsx');
       const file = await response.blob();
       const { paginatedData, totalRows } = await loadDataFromExcel(file, page * rowsPerPage, rowsPerPage, filters);
       setData(paginatedData);
